@@ -1,0 +1,7 @@
+body {
+	padding: 0 0 0 1em;
+}
+
+input[type=text] {
+	width:30px;
+}
