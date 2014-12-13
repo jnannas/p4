@@ -15,6 +15,7 @@ return array(
 
 	'debug' => false,
 
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application URL
@@ -173,6 +174,7 @@ return array(
 		'Mail'            => 'Illuminate\Support\Facades\Mail',
 		'Paginator'       => 'Illuminate\Support\Facades\Paginator',
 		'Password'        => 'Illuminate\Support\Facades\Password',
+		'Pre'			  => 'Paste\Pre',
 		'Queue'           => 'Illuminate\Support\Facades\Queue',
 		'Redirect'        => 'Illuminate\Support\Facades\Redirect',
 		'Redis'           => 'Illuminate\Support\Facades\Redis',
