@@ -17,105 +17,80 @@ Route::get('/', function()
 	return View::make('index');
 });
 
-Route::get('/lorem-ipsum', function()
-{
-	$paragraph = 0;
-	return View::make('lorem-ipsum')->with('paragraph', $paragraph);
-});
+Route::get('/practice-creating', function() {
 
-Route::post('/lorem-ipsum', function()
-{
-	$paragraph = Input::get("paragraphs");
-	return View::make('lorem-ipsum')->with('paragraph', $paragraph);
-});
+    # Instantiate a new recipe model class
+    $recipe = new Recipe();
 
-Route::get('/user-generator', function()
-{
-	$user = 0;
-	$birthdateOpt = "";
-	$profileOpt = "";
-	return View::make('user-generator')->with('user', $user)->with('birthdateOpt', $birthdateOpt)
-	->with('profileOpt', $profileOpt);
-});
+    # Set 
+    $recipe->recipeName = 'Cookies';
+    $recipe->ingredients = 'flour, eggs, sugar';
+    $recipe->directions = 'mix ingredients and bake at 375';
 
-Route::post('/user-generator', function()
-{
-	$user = Input::get('users');
-	$birthdateOpt = Input::get("birthdate");
-	if ($birthdateOpt == "on") {
-		$birthdateOpt = "checked";
-	}
-	$profileOpt = Input::get('profile');
-	if ($profileOpt == "on") {
-		$profileOpt = "checked";
-	}
-	return View::make('user-generator')->with('user', $user)
-	->with('birthdateOpt', $birthdateOpt)->with('profileOpt', $profileOpt);
-});
-Route::get('mysql-test', function() {
+    # This is where the Eloquent ORM magic happens
+    $recipe->save();
 
-    # Print environment
-    echo 'Environment: '.App::environment().'<br>';
-
-    # Use the DB component to select all the databases
-    $results = DB::select('SHOW DATABASES;');
-
-    # If the "Pre" package is not installed, you should output using print_r instead
-    echo Pre::render($results);
+    return 'A new recipe has been added! Check your database to see...';
 
 });
-Route::get('/debug', function() {
 
-    echo '<pre>';
+Route::get('/practice-reading', function() {
 
-    echo '<h1>environment.php</h1>';
-    $path   = base_path().'/environment.php';
+    # The all() method will fetch all the rows from a Model/table
+    $recipes = Recipe::all();
 
-    try {
-        $contents = 'Contents: '.File::getRequire($path);
-        $exists = 'Yes';
+    # Make sure we have results before trying to print them...
+    if($recipes->isEmpty() != TRUE) {
+
+        # Typically we'd pass $recipes to a View, but for quick and dirty demonstration, let's just output here...
+        foreach($recipes as $recipe) {
+            echo $recipe->recipeName.'<br>';
+        }
     }
-    catch (Exception $e) {
-        $exists = 'No. Defaulting to `production`';
-        $contents = '';
+    else {
+        return 'No recipes found';
     }
 
-    echo "Checking for: ".$path.'<br>';
-    echo 'Exists: '.$exists.'<br>';
-    echo $contents;
-    echo '<br>';
+});
 
-    echo '<h1>Environment</h1>';
-    echo App::environment().'</h1>';
+Route::get('/practice-updating', function() {
 
-    echo '<h1>Debugging?</h1>';
-    if(Config::get('app.debug')) echo "Yes"; else echo "No";
+    # First get a recipe to update
+    $recipe = Recipe::where('recipeName', 'LIKE', '%Cookies%')->first();
 
-    echo '<h1>Database Config</h1>';
-    print_r(Config::get('database.connections.mysql'));
+    # If we found the recipe, update it
+    if($recipe) {
 
-    echo '<h1>Test Database Connection</h1>';
-    try {
-        $results = DB::select('SHOW DATABASES;');
-        echo '<strong style="background-color:green; padding:5px;">Connection confirmed</strong>';
-        echo "<br><br>Your Databases:<br><br>";
-        print_r($results);
-    } 
-    catch (Exception $e) {
-        echo '<strong style="background-color:crimson; padding:5px;">Caught exception: ', $e->getMessage(), "</strong>\n";
+        # Give it a different title
+        $recipe->recipeName = 'Chocolate Chip Cookies';
+
+        # Save the changes
+        $recipe->save();
+
+        return "Update complete; check the database to see if your update worked...";
+    }
+    else {
+        return "recipe not found, can't update.";
     }
 
-    echo '</pre>';
-
 });
-Route::get('/get-environment',function() {
 
-    echo "Environment: ".App::environment();
+Route::get('/practice-deleting', function() {
 
-});
-Route::get('/trigger-error',function() {
+    # First get a recipe to delete
+    $recipe = Recipe::where('recipeName', 'LIKE', '%Chocolate Chip Cookies%')->first();
 
-    # Class Foobar should not exist, so this should create an error
-    $foo = new Foobar;
+    # If we found the recipe, delete it
+    if($recipe) {
+
+        # Goodbye!
+        $recipe->delete();
+
+        return "Deletion complete; check the database to see if it worked...";
+
+    }
+    else {
+        return "Can't delete - recipe not found.";
+    }
 
 });
