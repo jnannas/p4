@@ -19,37 +19,50 @@ Route::get('/', function()
 
 Route::get('/practice-creating', function() {
 
+    $author = new Author;
+    $author->name = 'Alton Brown';
+    $author->save();
+
+    $ingredient = new Ingredient;
+    $ingredient->name = 'flour';
+    $ingredient->save();
+
+    $tag = new Tag;
+    $tag->name = 'dessert';
+    $tag->save();
+
     # Instantiate a new recipe model class
     $recipe = new Recipe();
 
     # Set 
     $recipe->recipeName = 'Cookies';
-    $recipe->ingredients = 'flour, eggs, sugar';
     $recipe->directions = 'mix ingredients and bake at 375';
-
+    $recipe->author()->associate($author);
     # This is where the Eloquent ORM magic happens
     $recipe->save();
 
+    $recipe->ingredients()->attach($ingredient);
+    $recipe->tags()->attach($tag);
     return 'A new recipe has been added! Check your database to see...';
 
 });
 
 Route::get('/practice-reading', function() {
 
-    # The all() method will fetch all the rows from a Model/table
-    $recipes = Recipe::all();
+$recipes = Recipe::with('tags','author')->get(); 
 
-    # Make sure we have results before trying to print them...
-    if($recipes->isEmpty() != TRUE) {
+foreach($recipes as $recipe) {
 
-        # Typically we'd pass $recipes to a View, but for quick and dirty demonstration, let's just output here...
-        foreach($recipes as $recipe) {
-            echo $recipe->recipeName.'<br>';
+    echo $recipe->recipeName.' by '.$recipe->author->name.'<br>';
+    foreach($recipe->tags as $tag) {
+        echo $tag->name.", ";
         }
-    }
-    else {
-        return 'No recipes found';
-    }
+    foreach($recipe->ingredients as $ingredient) {
+        echo $ingredient->name.", ";
+        }
+    echo "<br><br>";
+
+}
 
 });
 
@@ -93,4 +106,16 @@ Route::get('/practice-deleting', function() {
         return "Can't delete - recipe not found.";
     }
 
+});
+
+Route::get('/truncate', function() {
+
+    # Clear the tables to a blank slate
+    DB::statement('SET FOREIGN_KEY_CHECKS=0'); # Disable FK constraints so that all rows can be deleted, even if there's an associated FK
+    DB::statement('TRUNCATE recipes');
+    DB::statement('TRUNCATE authors');
+    DB::statement('TRUNCATE ingredients');
+    DB::statement('TRUNCATE tags');
+    DB::statement('TRUNCATE recipe_tag');
+    DB::statement('TRUNCATE recipe_ingredient');
 });
