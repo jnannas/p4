@@ -18,6 +18,12 @@ Route::get('/', function()
 });
 
 
+Route::get('/classes', function() {
+    echo Paste\Pre::render(get_declared_classes(),'');
+});
+
+Route::get('/', 'IndexController@getIndex');
+
 Route::get('/recipe', 'RecipeController@getIndex');
 
 Route::get('/recipe/create', 'RecipeController@getCreate');
@@ -38,4 +44,36 @@ Route::get('/truncate', function() {
     DB::statement('TRUNCATE tags');
     DB::statement('TRUNCATE recipe_tag');
     DB::statement('TRUNCATE recipe_ingredient');
+});
+
+Route::get('/practice-creating', function() {
+
+    $author = new Author;
+    $author->name = 'Chef BOY RD';
+    $author->save();
+
+    $tag = new Tag;
+$tag->name = 'dessert';
+$tag->save();
+
+$ingredient = new Ingredient;
+$ingredient->name = 'flour';
+$ingredient->save();
+
+    # Instantiate a new recipe model class
+    $recipe = new recipe();
+
+    # Set 
+    $recipe->recipeName = 'Cookies';
+    $recipe->author()->associate($author);
+    $recipe->directions = 'mix ingredients and bake at 375';
+
+    # This is where the Eloquent ORM magic happens
+    $recipe->save();
+
+$recipe->tags()->attach($tag);
+$recipe->ingredients()->attach($ingredient);
+
+    return 'A new recipe has been added! Check your database to see...';
+
 });

@@ -20,7 +20,7 @@
 
 		<div class='form-group'>
 			{{ Form::label('recipeName','Recipe Name') }}
-			{{ Form::text('recipeName',$recipe['recipeName']); }}
+			{{ Form::text('recipeName', $recipe['recipeName']); }}
 		</div>
 
 		<div class='form-group'>

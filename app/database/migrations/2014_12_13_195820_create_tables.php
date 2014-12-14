@@ -37,7 +37,7 @@ class CreateTables extends Migration {
 			$table->string('directions');
 			
 			# Define foreign keys...
-			$table->foreign('author_id')->references('id')->on('authors');
+			$table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
 			
 								
 		});
@@ -69,8 +69,8 @@ class CreateTables extends Migration {
 			$table->integer('tag_id')->unsigned();
 			
 			# Define foreign keys...
-			$table->foreign('recipe_id')->references('id')->on('recipes');
-			$table->foreign('tag_id')->references('id')->on('tags');
+			$table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
+			$table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 			
 		});
 
@@ -98,8 +98,8 @@ class CreateTables extends Migration {
 			$table->integer('ingredient_id')->unsigned();
 			
 			# Define foreign keys...
-			$table->foreign('recipe_id')->references('id')->on('recipes');
-			$table->foreign('ingredient_id')->references('id')->on('ingredients');
+			$table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
+			$table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade') ;
 			
 		});
 	}

@@ -2,11 +2,11 @@
 
 class RecipeController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+	public function __construct() {
+		# Make sure BaseController construct gets called
+		parent::__construct();
+	}
+
 	public function getIndex()
 	{
 		
@@ -70,33 +70,39 @@ class RecipeController extends \BaseController {
 
 	public function postEdit() {
 		try {
-	        $recipe = Recipe::with('tags')->findOrFail(Input::get('id'));
+	        $recipe = Recipe::with('tags','ingredients')->findOrFail(Input::get('id'));
 	    }
 	    catch(exception $e) {
 	        return Redirect::to('/recipe')->with('flash_message', 'Recipe not found');
 	    }
-	    try {
-		    # http://laravel.com/docs/4.2/eloquent#mass-assignment
-		    $recipe->fill(Input::except('tags'));
-		    $recipe->save();
-		    # Update tags associated with this book
-		    if(!isset($_POST['tags'])) $_POST['tags'] = array();
-		    $recipe->updateTags($_POST['tags']);
-		   	return Redirect::action('RecipeController@getIndex')->with('flash_message','Changes Saved.');
-		}
-		catch(exception $e) {
+
+	    	try {
+		    	$recipe->fill(Input::except('tags', 'ingredients'));
+		    	$recipe->save();
+
+		    	if(!isset($_POST['tags'])) $_POST['tags'] = array();
+		    	$recipe->updateTags($_POST['tags']);
+
+		    	if(!isset($_POST['ingredients'])) $_POST['ingredients'] = array();
+		    	$recipe->updateIngredients($_POST['ingredients']);
+
+		   		return Redirect::action('RecipeController@getIndex')->with('flash_message','Changes Saved.');
+	
+		 	}
+		 	catch(exception $e) {
 	        return Redirect::to('/recipe')->with('flash_message', 'Error saving changes.');
-	    }
+	    	}
+
 	}
 
 	public function postDelete() {
 		try {
-	        $recipe = Book::findOrFail(Input::get('id'));
+	        $recipe = Recipe::findOrFail(Input::get('id'));
 	    }
 	    catch(exception $e) {
 	        return Redirect::to('/recipe/')->with('flash_message', 'Could not delete recipe - not found.');
 	    }
-	    Book::destroy(Input::get('id'));
+	    Recipe::destroy(Input::get('id'));
 	    return Redirect::to('/recipe/')->with('flash_message', 'Recipe deleted.');
 	}
 }
