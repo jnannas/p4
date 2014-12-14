@@ -2,11 +2,11 @@
 <html>
 <head>
 
-	<title>@yield('title','Recipes')</title>
+	<title>@yield('title','Recipe Manager')</title>
 	<meta charset='utf-8'>
 
 	<link href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet">
-	<link rel='stylesheet' href='/css/foobooks.css' type='text/css'>
+	<link rel='stylesheet' href='/css/style.css' type='text/css'>
 
 	@yield('head')
 
@@ -18,14 +18,9 @@
 		<div class='flash-message'>{{ Session::get('flash_message') }}</div>
 	@endif
 
-	<nav>
-		<ul>
-			<li><a href='/recipe/create'>Add Book</a></li>
-		</ul>
-	</nav>
-
-	<a href='https://github.com/jwnannas/p4'>View on Github</a>
-
+	<a href='https://github.com/jwnannas/p4'>Github Repository</a>
+	<br/>
+	<a href='/recipe'>Home</a>
 	@yield('content')
 
 	@yield('/body')

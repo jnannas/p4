@@ -1,11 +1,10 @@
 @extends('_master')
 
 @section('title')
-	Add a new book
+	Create New Recipe
 @stop
 
 @section('content')
-
 	<h1>Create a new recipe</h1>
 
 	{{ Form::open(array('url' => '/recipe/create')) }}

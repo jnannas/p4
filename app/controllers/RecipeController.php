@@ -40,12 +40,16 @@ class RecipeController extends \BaseController {
 		$recipe->fill(Input::except('tags','ingredients'));
 	
 		$recipe->save();
+		if(isset($_POST['tags'])){
 		foreach(Input::get('tags') as $tag) {
 			$recipe->tags()->save(Tag::find($tag));
 		}
+	}
+		if(isset($_POST['ingredients'])){
 		foreach(Input::get('ingredients') as $ingredient) {
 			$recipe->ingredients()->save(Ingredient::find($ingredient));
 		}
+	}
 		return Redirect::action('RecipeController@getIndex')->with('flash_message','Your recipe has been added.');
 	}
 

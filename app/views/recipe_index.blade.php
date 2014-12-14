@@ -1,13 +1,14 @@
 @extends('_master')
 
 @section('title')
-	Recipes
+	Recipe Manager
 @stop
 
 @section('content')
 
-	<h1>Recipes</h1>
+	<h1>Recipe Manager</h1>
 
+	<h2><a href="/recipe/create">Create New Recipe</a></h2>
 	@if($query)
 		<h2>You searched for {{{ $query }}}</h2>
 	@endif
