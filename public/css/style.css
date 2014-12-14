@@ -1,13 +1,29 @@
-body {
-	padding: 0 0 0 1em;
+nav {
+	font-weight: bold;
+	font-style: italic;
+}
+
+form {
+	border: 3px solid black;
+	padding: .5em;
+	width: 50%;
+	font-weight: bold;
+	font-size: larger;
+	background-image: url('../images/notecard.jpg');
+}
+
+.content {
+	padding: 0 0 0 2em;
 }
 
 .recipe {
 	border: 3px solid black;
 	display: inline-block;
+	font-weight: bold;
 	margin-right: 2em;
 	margin-bottom: 2em;
 	padding: 0 1em 1em 1em;
+	background-image: url('../images/recipecard.jpg');
 }
 
 .recipe h2 {

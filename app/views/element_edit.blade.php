@@ -8,7 +8,6 @@
 	<h1>Edit Recipe Elements</h1>
 	<p>Select a value to delete it or enter a new value in the text boxes below.</p>
 	{{ Form::open(array('url' => '/recipe/elements/edit')) }}
-
 		{{ Form::label('author_id', 'Author') }}
 		{{ Form::select('author_id', $authors); }}
 		<br/>

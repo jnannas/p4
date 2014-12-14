@@ -18,10 +18,18 @@
 		<div class='flash-message'>{{ Session::get('flash_message') }}</div>
 	@endif
 
-	<a href='https://github.com/jwnannas/p4'>Github Repository</a>
-	<br/>
-	<a href='/recipe'>Home</a>
+	<nav class='navbar navbar-default' role='navigation'>
+		<ul class="nav nav-pills">
+			<li><a href='https://github.com/jnannas/p4'>Github Repository</a></li>
+			<li><a href='/recipe'>Home</a></li>
+			<li><a href='/recipe/create'>Create Recipe</a></li>
+			<li><a href='/recipe/elements/edit'>Edit Recipe Elements</a></li>
+		</ul>
+	</nav>
+
+	<div class="content">
 	@yield('content')
+	</div>
 
 	@yield('/body')
 
