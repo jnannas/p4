@@ -60,8 +60,7 @@ $ingredient = new Ingredient;
 $ingredient->name = 'flour';
 $ingredient->save();
 
-    # Instantiate a new recipe model class
-    $recipe = new recipe();
+    $recipe = new Recipe();
 
     # Set 
     $recipe->recipeName = 'Cookies';
