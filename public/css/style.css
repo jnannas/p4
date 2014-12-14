@@ -16,6 +16,18 @@ form {
 	padding: 0 0 0 2em;
 }
 
+input {
+	background-color: #E3E0CF;
+}
+
+select {
+	background-color: #E3E0CF;
+}
+
+textarea {
+	background-color: #E3E0CF;
+}
+
 .recipe {
 	border: 3px solid black;
 	display: inline-block;

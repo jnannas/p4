@@ -1,16 +1,10 @@
 <?php
 
-Route::get('/', function()
-{
-	return View::make('index');
-});
-
-
 Route::get('/classes', function() {
     echo Paste\Pre::render(get_declared_classes(),'');
 });
 
-Route::get('/', 'IndexController@getIndex');
+Route::get('/', 'RecipeController@getIndex');
 
 Route::get('/recipe', 'RecipeController@getIndex');
 
@@ -28,15 +22,3 @@ Route::get('/recipe/edit/{id}', 'RecipeController@getEdit');
 Route::post('/recipe/edit', 'RecipeController@postEdit');
 
 Route::post('/recipe/delete', 'RecipeController@postDelete');
-
-Route::get('/truncate', function() {
-
-    DB::statement('SET FOREIGN_KEY_CHECKS=0'); 
-    DB::statement('TRUNCATE recipes');
-    DB::statement('TRUNCATE authors');
-    DB::statement('TRUNCATE ingredients');
-    DB::statement('TRUNCATE tags');
-    DB::statement('TRUNCATE recipe_tag');
-    DB::statement('TRUNCATE recipe_ingredient');
-});
-
