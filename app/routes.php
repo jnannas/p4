@@ -17,96 +17,16 @@ Route::get('/', function()
 	return View::make('index');
 });
 
-Route::get('/practice-creating', function() {
 
-    $author = new Author;
-    $author->name = 'Alton Brown';
-    $author->save();
+Route::get('/recipe', 'RecipeController@getIndex');
 
-    $ingredient = new Ingredient;
-    $ingredient->name = 'flour';
-    $ingredient->save();
+Route::get('/recipe/create', 'RecipeController@getCreate');
+Route::post('/recipe/create', 'RecipeController@postCreate');
 
-    $tag = new Tag;
-    $tag->name = 'dessert';
-    $tag->save();
+Route::get('/recipe/edit/{id}', 'RecipeController@getEdit');
+Route::post('/recipe/edit', 'RecipeController@postEdit');
 
-    # Instantiate a new recipe model class
-    $recipe = new Recipe();
-
-    # Set 
-    $recipe->recipeName = 'Cookies';
-    $recipe->directions = 'mix ingredients and bake at 375';
-    $recipe->author()->associate($author);
-    # This is where the Eloquent ORM magic happens
-    $recipe->save();
-
-    $recipe->ingredients()->attach($ingredient);
-    $recipe->tags()->attach($tag);
-    return 'A new recipe has been added! Check your database to see...';
-
-});
-
-Route::get('/practice-reading', function() {
-
-$recipes = Recipe::with('tags','author')->get(); 
-
-foreach($recipes as $recipe) {
-
-    echo $recipe->recipeName.' by '.$recipe->author->name.'<br>';
-    foreach($recipe->tags as $tag) {
-        echo $tag->name.", ";
-        }
-    foreach($recipe->ingredients as $ingredient) {
-        echo $ingredient->name.", ";
-        }
-    echo "<br><br>";
-
-}
-
-});
-
-Route::get('/practice-updating', function() {
-
-    # First get a recipe to update
-    $recipe = Recipe::where('recipeName', 'LIKE', '%Cookies%')->first();
-
-    # If we found the recipe, update it
-    if($recipe) {
-
-        # Give it a different title
-        $recipe->recipeName = 'Chocolate Chip Cookies';
-
-        # Save the changes
-        $recipe->save();
-
-        return "Update complete; check the database to see if your update worked...";
-    }
-    else {
-        return "recipe not found, can't update.";
-    }
-
-});
-
-Route::get('/practice-deleting', function() {
-
-    # First get a recipe to delete
-    $recipe = Recipe::where('recipeName', 'LIKE', '%Chocolate Chip Cookies%')->first();
-
-    # If we found the recipe, delete it
-    if($recipe) {
-
-        # Goodbye!
-        $recipe->delete();
-
-        return "Deletion complete; check the database to see if it worked...";
-
-    }
-    else {
-        return "Can't delete - recipe not found.";
-    }
-
-});
+Route::post('/recipe/delete', 'RecipeController@postDelete');
 
 Route::get('/truncate', function() {
 
