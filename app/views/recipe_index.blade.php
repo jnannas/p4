@@ -23,7 +23,7 @@
 				<h2>{{ $recipe['recipeName'] }}</h2>
 
 				<p>
-					<a href='/recipe/edit/{{$recipe['id']}}'>Edit</a>
+					<a href='/recipe/edit/{{$recipe['id']}}'>View or Edit</a>
 				</p>
 
 				<p>
