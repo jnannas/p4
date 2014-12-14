@@ -1,41 +1,13 @@
 <?php
 
-class TagController extends \BaseController {
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
+class IngredientController extends \BaseController {
 
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
 	public function store()
 	{
-		 $tag = new Tag;
-    	$tag->name = $name;
-    	$tag->save();
-
-		return Redirect::back()->with('flash_message','Your new tag been added.');
+		$ingredient = new Author;
+   		$ingredient->name = Input::get('newIngredient');
+    	$ingredient->save();
 	}
 
 

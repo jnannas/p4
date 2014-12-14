@@ -10,8 +10,9 @@
 
 @section('content')
 
-	<h1>Edit</h1>
-	<h2>{{{ $recipe['recipeName'] }}}</h2>
+	<h1>Edit {{{ $recipe['recipeName'] }}} </h1>
+	<p>Don't see what you need:<br/>
+	<a href='/recipe/elements/edit'>Edit Authors/Ingredients/Tags</a>
 
 	{{---- EDIT -----}}
 	{{ Form::open(array('url' => '/recipe/edit')) }}

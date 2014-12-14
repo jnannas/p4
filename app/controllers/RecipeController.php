@@ -3,7 +3,6 @@
 class RecipeController extends \BaseController {
 
 	public function __construct() {
-		# Make sure BaseController construct gets called
 		parent::__construct();
 	}
 
@@ -20,6 +19,51 @@ class RecipeController extends \BaseController {
 				->with('query', $query);
 		}
 	}
+
+	public function getEditElement()
+	{
+		$authors = Author::getIdNamePair();
+		$tags = Tag::getIdNamePair();
+		$ingredients = Ingredient::getIdNamePair();
+		return View::make('element_edit')
+		    ->with('authors',$authors)
+    		->with('tags',$tags)
+    		->with('ingredients', $ingredients);
+	}
+
+	public function postEditElement()
+	{
+		if(!empty($_POST['newAuthor'])){
+		$author = new Author;
+   		$author->name = Input::get('newAuthor');
+    	$author->save();
+	}
+	if(!empty($_POST['newIngredient'])){
+		$ingredient = new Ingredient;
+   		$ingredient->name = Input::get('newIngredient');
+    	$ingredient->save();
+	}
+	if(!empty($_POST['newTag'])){
+		$tag = new Tag;
+   		$tag->name = Input::get('newTag');
+    	$tag->save();
+	}
+	if(Input::get('author_id')!=1){
+		Author::destroy(Input::get('author_id'));
+	}
+	if(isset($_POST['ingredients'])){
+		foreach(Input::get('ingredients') as $ingredient) {
+			Ingredient::destroy($ingredient);
+		}
+	}
+	if(isset($_POST['tags'])){
+		foreach(Input::get('tags') as $tag) {
+			Tag::destroy($tag);
+		}
+	}
+		return Redirect::back()->with('flash_message','Changes Made.');  
+	}
+
 
 	public function getCreate()
 	{

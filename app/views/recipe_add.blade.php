@@ -6,7 +6,10 @@
 
 @section('content')
 	<h1>Create a new recipe</h1>
-
+	<p>Don't see what you need:<br/>
+	<a href='/recipe/elements/edit'>Edit Authors/Ingredients/Tags</a>
+	</p>
+	
 	{{ Form::open(array('url' => '/recipe/create')) }}
 
 		{{ Form::label('recipeName','Recipe Name') }}
@@ -14,7 +17,6 @@
 		<br/>
 		{{ Form::label('author_id', 'Author') }}
 		{{ Form::select('author_id', $authors); }}
-
 		<br/>
 		<h3>Ingredents</h3>
 		@foreach($ingredients as $id => $ingredient)
@@ -32,7 +34,5 @@
 		<br/>
 		<br/>
 		{{ Form::submit('Create Recipe'); }}
-
-	{{ Form::close() }}
 
 @stop
