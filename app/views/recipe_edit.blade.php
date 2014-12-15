@@ -1,7 +1,7 @@
 @extends('_master')
 
 @section('title')
-	Edit
+	Read/Edit Recipe
 @stop
 
 @section('head')
@@ -10,7 +10,7 @@
 
 @section('content')
 
-	<h1>Edit {{{ $recipe['recipeName'] }}} </h1>
+	<h1>{{{ $recipe['recipeName'] }}} </h1>
 	<p>Don't see what you need:<br/>
 	<a href='/recipe/elements/edit'>Edit Authors/Ingredients/Tags</a>
 
