@@ -18,7 +18,7 @@
 		{{ Form::label('author_id', 'Author') }}
 		{{ Form::select('author_id', $authors); }}
 		<br/>
-		<h3>Ingredents</h3>
+		<h3>Ingredients</h3>
 		@foreach($ingredients as $id => $ingredient)
 			{{ Form::checkbox('ingredients[]', $id); }} {{ $ingredient }}
 		@endforeach
