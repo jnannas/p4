@@ -1,14 +1,13 @@
-#Project 3
+#Project 4
 
 ## Live Project URL
-[link](http:p3.jwnannas.com)  
+[link](http:p4.jwnannas.com)  
 
 ## Project Description
-Project 3 is a developer's best friend. It provided two tools, a loerm-ipsum generator as well as a random user generator.
+Project 4 is a recipe manager. It provides an ability to create, read, update, and delete recipes and their elements (ingredients, recipe descriptors (tags), authors, etc).
 
 ## Demo Information
 Jing Screencast [link](http://screencast.com/t/elhx9cnHuf)
 
 ##Additional Details
-The badcow/lorem-ipsum package was used to generate the lorem-ipsum text.
-The fzaninotto/faker package was used to generate the random user data.
+styling was implemented with bootstrap: [link](http://getbootstrap.com/css/)
